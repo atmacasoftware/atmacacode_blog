@@ -1,25 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
+import {Routes, BrowserRouter, Route} from "react-router-dom";
+import Home from "./pages/Home";
+import Blog from "./pages/Blog";
+import NotFound from "./pages/NotFound";
+import "react-toastify/dist/ReactToastify.css"
+import {ToastContainer} from "react-toastify";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import React from "react";
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <BrowserRouter>
+            <div className="App">
+                <Header />
+                <ToastContainer/>
+                <Routes>
+                    <Route path="/" element={<Home/>}/>
+                    <Route path="/:slug" element={<Blog/>}/>
+                    <Route path="*" element={<NotFound/>}/>
+                </Routes>
+                <Footer />
+            </div>
+        </BrowserRouter>
+    );
 }
 
 export default App;
