@@ -21,6 +21,15 @@ const Blog = () => {
         postBlogIp();
     }, [slug]);
 
+    useEffect(() => {
+        document.title = data.name
+    }, [data.name])
+
+    useEffect(() => {
+        document.getElementsByTagName("META")[3].content=data.description;
+    }, [data.description])
+
+
     const loadBlogData = async () => {
         const response = await axios.get(`https://www.atmacacode.net/blog/api/tum-yazilar/yazi/${slug}/`)
         if (response.status === 200) {

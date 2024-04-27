@@ -56,12 +56,8 @@ code {
 .category-list > div > span:hover {
     background-color: #eeeeee;
     transition: 0.3s ease;
-
-}
-
-.category-list > div > span:hover a {
     color: #000 !important;
-    transition: 0.3s ease;
+
 }
 
 .blog--user-img img {
