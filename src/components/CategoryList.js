@@ -1,15 +1,15 @@
 import React from "react";
 import {
-    MDBBadge,
+    MDBBadge, MDBBtn,
 } from "mdb-react-ui-kit";
 import {Link} from "react-router-dom";
 
-const CategoryList = ({name, slug, created_at}) => {
+const CategoryList = ({name, slug, created_at, handleCategory}) => {
 
     return (
         <div>
-            <MDBBadge className="p-2" pill color='dark' light>
-                <Link to={`?kategori=${slug}`} className="text-white">{name}</Link>
+            <MDBBadge className="p-2" style={{cursor:"pointer"}} onClick={() => {handleCategory(slug)}} pill color='dark' light>
+                {name}
             </MDBBadge>
 
         </div>

@@ -40,8 +40,8 @@ function App() {
         }
     }
 
-    const loadCategoryData = async () => {
-        const response = await axios.get("https://www.atmacacode.net/blog/api/kategoriler/")
+    const loadCategoryData = async (category) => {
+        const response = await axios.get(`https://www.atmacacode.net/blog/api/kategoriler/`)
         if (response.status === 200) {
             categorySetData(response.data)
         } else {
@@ -54,13 +54,22 @@ function App() {
         setSearchField(searchFieldString);
     };
 
+    const handleCategory = async (category) => {
+        const response = await axios.get(`https://www.atmacacode.net/blog/api/tum-yazilar/?kategori=${category}`)
+        if(response.status === 200) {
+            setFilterBlogs(response.data.data)
+        }else {
+            toast.error("Bir hata meydana geldi.");
+        }
+    }
+
     return (
         <BrowserRouter>
             <div className="App">
                 <Header/>
                 <ToastContainer/>
                 <Routes>
-                    <Route path="/" element={<Home onChangeHandler={onSearchChange} data={filteredBlogs} categoryData={categoryData}/>}/>
+                    <Route path="/" element={<Home onChangeHandler={onSearchChange} handleCategory={handleCategory} data={filteredBlogs} categoryData={categoryData}/>}/>
                     <Route path="/:slug" element={<Blog/>}/>
                     <Route path="*" element={<NotFound/>}/>
                 </Routes>

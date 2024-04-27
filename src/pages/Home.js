@@ -4,7 +4,7 @@ import Blogs from "../components/Blogs";
 import CategoryList from "../components/CategoryList";
 import Search from "../components/Search";
 
-const Home = ({onChangeHandler, data, categoryData}) => {
+const Home = ({onChangeHandler, handleCategory, data, categoryData}) => {
 
     return (
         <>
@@ -49,6 +49,7 @@ const Home = ({onChangeHandler, data, categoryData}) => {
                                     <div className="category-list">
                                         {categoryData.data && categoryData.data.map((item, index) => (
                                             <CategoryList
+                                                handleCategory={handleCategory}
                                                 key={index}
                                                 {...item}
                                             />
