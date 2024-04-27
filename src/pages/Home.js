@@ -1,37 +1,10 @@
-import React, {useState, useEffect} from "react";
-import axios from "axios";
+import React from "react";
 import {MDBRow, MDBCol, MDBContainer, MDBTypography} from "mdb-react-ui-kit"
-import {toast} from "react-toastify";
 import Blogs from "../components/Blogs";
 import CategoryList from "../components/CategoryList";
+import Search from "../components/Search";
 
-const Home = () => {
-    const [data, setData] = useState({});
-    const [categoryData, categorySetData] = useState({});
-
-    useEffect(() => {
-        loadBlogsData();
-        loadCategoryData();
-    }, []);
-
-    const loadBlogsData = async () => {
-        const response = await axios.get("https://www.atmacacode.net/blog/api/tum-yazilar/")
-        if (response.status === 200) {
-            setData(response.data)
-        } else {
-            toast.error("Bir hata meydana geldi.");
-        }
-    }
-
-    const loadCategoryData = async () => {
-        const response = await axios.get("https://www.atmacacode.net/blog/api/kategoriler/")
-        if (response.status === 200) {
-            categorySetData(response.data)
-        } else {
-            toast.error("Bir hata meydana geldi.");
-        }
-    }
-
+const Home = ({onChangeHandler, data, categoryData}) => {
 
     return (
         <>
@@ -48,16 +21,17 @@ const Home = () => {
                 </MDBRow>
                 <MDBRow className="mt-4">
                     <MDBCol className="col-lg-12">
-                        {data.length === 0 && (
-                            <MDBTypography className="text-center mb-0" tag="h2">
-                                Herhangi bir blog yazısı bulunmamaktadır.
-                            </MDBTypography>
-                        )}
                         <MDBRow>
-                            <MDBCol className="col-lg-9 col-md-9 col-sm-12 col-12">
+                            <MDBCol className="col-lg-9 col-md-9 col-sm-12 col-12 blogs-col">
                                 <MDBContainer>
                                     <MDBRow>
-                                        {data.data && data.data.map((item, index) => (
+                                        {data.length === 0 && (
+                                            <MDBTypography note noteColor='warning'>
+                                                <strong>Uyarı:</strong> Aradığınız kelimeli ile ilgili herhangi bir yazı
+                                                bulunamamıştır. Lütfen başka bir kelime ile arama yapınız.
+                                            </MDBTypography>
+                                        )}
+                                        {data && data.map((item, index) => (
                                             <Blogs
                                                 key={index}
                                                 {...item}
@@ -67,8 +41,11 @@ const Home = () => {
                                 </MDBContainer>
                             </MDBCol>
                             <MDBCol className="col-lg-3 col-md-3 d-none d-sm-none d-md-block d-lg-block">
-                                <h5 className="right-bar-title">Kategoriler</h5>
                                 <MDBRow>
+                                    <Search onChangeHandler={onChangeHandler}/>
+                                </MDBRow>
+                                <MDBRow>
+                                    <h5 className="right-bar-title">Kategoriler</h5>
                                     <div className="category-list">
                                         {categoryData.data && categoryData.data.map((item, index) => (
                                             <CategoryList

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {
-    MDBBadge, MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardLink, MDBCardText, MDBCardTitle,
+    MDBBadge, MDBBtn, MDBCard, MDBCardBody, MDBCardText, MDBCardTitle,
     MDBCol,
     MDBContainer, MDBIcon, MDBListGroup, MDBListGroupItem,
     MDBRow
@@ -13,10 +13,13 @@ import HTMLReactParser from "html-react-parser";
 const Blog = () => {
 
     const [data, setData] = useState({});
+
     const {slug} = useParams();
+
     useEffect(() => {
         loadBlogData();
-    }, []);
+        postBlogIp();
+    }, [slug]);
 
     const loadBlogData = async () => {
         const response = await axios.get(`https://www.atmacacode.net/blog/api/tum-yazilar/yazi/${slug}/`)
@@ -27,9 +30,14 @@ const Blog = () => {
         }
     }
 
+    const postBlogIp = async () => {
+        await axios.post(`https://www.atmacacode.net/blog/api/tum-yazilar/yazi/${slug}/`);
+    }
+
+
     return (
         <div className="mt-4">
-            <MDBContainer>
+            <MDBContainer className="blog-container">
                 <MDBRow>
                     <div className="mb-2">
                         <h3 className="text-start">{data.name}</h3>
@@ -39,9 +47,9 @@ const Blog = () => {
                         </div>
                     </div>
                     <div>
-                        <div>
-                            <img src={`https://www.atmacacode.net/atmacacode/${data.image}`} alt="Blog"
-                                 style={{maxHeight: "375px"}}/>
+                        <div className="blog-main-image">
+                            <img className="full-image" src={`https://www.atmacacode.net/atmacacode/${data.image}`} alt="Blog"
+                                 />
                         </div>
                     </div>
                     <div>
@@ -53,7 +61,7 @@ const Blog = () => {
                             </MDBCol>
                             <MDBCol className="col-lg-3 col-md-3 col-sm-12">
                                 <MDBRow>
-                                    <MDBCard className="shadow-2">
+                                    <MDBCard className="shadow-3">
                                         <MDBCardBody>
                                             <div className="blog--user-img">
                                                 <img src={`https://www.atmacacode.net/atmacacode/${data.user_photo}`}
@@ -86,19 +94,14 @@ const Blog = () => {
                                             </MDBBtn>
                                         </MDBCardBody>
                                     </MDBCard>
-                                    <MDBCard className="mt-3 shadow-0 statistic-card">
+                                    <MDBCard className="mt-3 shadow-3 statistic-card">
                                         <MDBCardBody>
                                             <MDBListGroup className="float-start" light>
-                                                <MDBListGroupItem className="d-flex align-items-center justify-content-start float-start">
-                                                    <MDBIcon far icon="eye" /> <span style={{marginLeft:'30'}}>{data.view_count} Görüntülenme</span>
+                                                <MDBListGroupItem
+                                                    className="d-flex align-items-center justify-content-start float-start">
+                                                    <MDBIcon far icon="eye"/> <span
+                                                    style={{marginLeft: '30'}}>{data.view_count} Görüntülenme</span>
                                                 </MDBListGroupItem>
-                                                <MDBListGroupItem className="d-flex align-items-center justify-content-start float-start">
-                                                    <MDBIcon far icon="thumbs-up"/> <span
-                                                    style={{marginLeft: '30'}}>{data.view_count} Beğenme</span>
-                                                </MDBListGroupItem>
-                                                <MDBListGroupItem>Morbi leo risus</MDBListGroupItem>
-                                                <MDBListGroupItem>Porta ac consectetur ac</MDBListGroupItem>
-                                                <MDBListGroupItem>Vestibulum at eros</MDBListGroupItem>
                                             </MDBListGroup>
                                         </MDBCardBody>
                                     </MDBCard>

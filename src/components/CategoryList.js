@@ -9,8 +9,8 @@ const CategoryList = ({name, slug, created_at}) => {
     return (
         <div>
             <MDBBadge className="p-2" pill color='dark' light>
-        <Link to="" className="text-white">{name}</Link>
-      </MDBBadge>
+                <Link to={`?kategori=${slug}`} className="text-white">{name}</Link>
+            </MDBBadge>
 
         </div>
     )

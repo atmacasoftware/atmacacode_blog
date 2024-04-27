@@ -89,10 +89,7 @@ code {
 .navbar .container-fluid {
     flex-direction: row !important;
     flex-wrap: nowrap !important;
-}
-
-.navbar .input-group {
-    width: 100% !important;
+    justify-content: center!important;
 }
 
 .blog-search-input {
@@ -101,31 +98,14 @@ code {
     outline: none !important;
 }
 
-@media screen and (max-width: 465px) {
-    .navbar .container-fluid {
-        flex-direction: row !important;
-        flex-wrap: wrap !important;
-    }
 
-    .navbar .input-group {
-        width: 100% !important;
-    }
-
-    .navbar-brand {
-        width: 100%;
-        justify-content: center;
-    }
-
-    .navbar-brand img {
-        height: 75px;
-    }
+.blog-container img.full-image{
+    width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    height: max-content;
 }
 
-@media screen and (max-width: 390px) {
-    .blog-search-input {
-        width: 100%;
-        border-radius: 20px !important;
-        outline: none !important;
-        min-width: 100%;
-    }
+.blogs-col{
+    border-right: 1px solid rgba(0,0,0,0.25);
 }
