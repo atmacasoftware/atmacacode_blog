@@ -36,6 +36,16 @@ const Home = () => {
     return (
         <>
             <MDBContainer className="my-4">
+                <MDBRow className="d-block d-sm-block d-lg-none d-md-none">
+                    <div className="category-list category-list-mobile">
+                        {categoryData.data && categoryData.data.map((item, index) => (
+                            <CategoryList
+                                key={index}
+                                {...item}
+                            />
+                        ))}
+                    </div>
+                </MDBRow>
                 <MDBRow className="mt-4">
                     <MDBCol className="col-lg-12">
                         {data.length === 0 && (
@@ -44,7 +54,7 @@ const Home = () => {
                             </MDBTypography>
                         )}
                         <MDBRow>
-                            <MDBCol className="col-lg-8 col-md-9 col-sm-12">
+                            <MDBCol className="col-lg-9 col-md-9 col-sm-12 col-12">
                                 <MDBContainer>
                                     <MDBRow>
                                         {data.data && data.data.map((item, index) => (
@@ -56,7 +66,8 @@ const Home = () => {
                                     </MDBRow>
                                 </MDBContainer>
                             </MDBCol>
-                            <MDBCol className="col-lg-4 col-md-3 hidden-xs">
+                            <MDBCol className="col-lg-3 col-md-3 d-none d-sm-none d-md-block d-lg-block">
+                                <h5 className="right-bar-title">Kategoriler</h5>
                                 <MDBRow>
                                     <div className="category-list">
                                         {categoryData.data && categoryData.data.map((item, index) => (
